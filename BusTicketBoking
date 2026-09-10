@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class BusBooking {
+
+    static int availableSeats = 20;
+
+    
+    static void checkAge(int age) {
+        if (age <= 0) {
+            throw new IllegalArgumentException("Invalid age! Age must be greater than 0.");
+        }
+    }
+
+    
+    static void checkSeats(int seats) {
+        if (seats <= 0) {
+            throw new IllegalArgumentException("Invalid number of seats! Seats must be greater than 0.");
+        }
+    }
+
+    
+    static void bookSeats(int seats) {
+        if (seats > availableSeats) {
+            throw new IllegalArgumentException("Insufficient seats! Only "
+                    + availableSeats + " seats are available.");
+        }
+
+        availableSeats = availableSeats - seats;
+        System.out.println("Booking successful!");
+        System.out.println("Remaining seats: " + availableSeats);
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter passenger age: ");
+            int age = sc.nextInt();
+
+            checkAge(age);
+
+            System.out.print("Enter number of seats: ");
+            int seats = sc.nextInt();
+
+            checkSeats(seats);
+            bookSeats(seats);
+
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Invalid input! Please enter numbers only.");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            sc.close();
+        }
+    }
+}
